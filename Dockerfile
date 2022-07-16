@@ -1,9 +1,9 @@
-ARG APLINE_VERSION=3.12.7
-ARG BUILD_FROM="alpine:${APLINE_VERSION}"
+ARG ALPINE_VERSION=3.12.7
+ARG BUILD_FROM="alpine:${ALPINE_VERSION}"
 
 FROM $BUILD_FROM
 
-ARG APLINE_VERSION
+ARG ALPINE_VERSION
 ARG BUILD_FROM
 ARG BUILD_DATE
 ARG BUILD_VERSION
@@ -19,25 +19,25 @@ RUN apk --update upgrade \
 
 WORKDIR /home/service_user
 
-COPY --chown=service_user:service_user dynv6.sh .
+COPY --chown=service_user:service_user duckdns.sh .
 
-RUN chmod 500 dynv6.sh
+RUN chmod 500 duckdns.sh
 
 USER service_user
 
 LABEL org.opencontainers.image.created=$BUILD_DATE \
       org.opencontainers.image.authors="Christian Kulbe <chriskbua@mail.de>" \
-      org.opencontainers.image.url="https://hub.docker.com/r/chriskuba/dynv6-client" \
-      org.opencontainers.image.documentation="https://github.com/ChrisKuBa/docker-dynv6-client/blob/main/README.md" \
-      org.opencontainers.image.source="https://github.com/ChrisKuBa/docker-dynv6-client" \ 
+      org.opencontainers.image.url="https://hub.docker.com/r/chriskuba/duckdns-client" \
+      org.opencontainers.image.documentation="https://github.com/ChrisKuBa/docker-duckdns-client/blob/main/README.md" \
+      org.opencontainers.image.source="https://github.com/ChrisKuBa/docker-duckdns-client" \ 
       org.opencontainers.image.version=$BUILD_VERSION \
       org.opencontainers.image.licenses="GPL-2.0" \
-      org.opencontainers.image.title=dynv6-client \
+      org.opencontainers.image.title=duckdns-client \
       org.opencontainers.image.revision=$BUILD_REVISION \
-      org.opencontainers.image.description="This simple alpine docker container updates the ipv6 address of a dynv6 zone." \
+      org.opencontainers.image.description="This simple alpine docker container updates the ipv6 address of a duckdns zone/domain" \
       org.opencontainers.image.base.name=$BUILD_FROM
 #LABEL org.opencontainers.image.vendor=""
 #LABEL org.opencontainers.image.ref.name=""
 #LABEL org.opencontainers.image.base.digest=""
 
-ENTRYPOINT ["/home/service_user/dynv6.sh"]
+ENTRYPOINT ["/home/service_user/duckdns.sh"]

@@ -1,8 +1,8 @@
-# dynvp6-client
+# duckdns-client
 
-Field of use: IPV6 only address (with/out a public IPV4 address) with [dynv6](https://dynv6.com/).
+Field of use: IPV6 only address (with/out a public IPV4 address) with [duckdns](https://duckdns.org/).
 
-This simple alpine docker container updates the ipv6 address of a dynv6 zone.
+This simple alpine docker container updates the ipv6 address of a duckdns zone/domain.
 
 It is recommended using a static Interface-ID (EUI-64-Identifier) if address is used for services and one or many ports must be forward through a firewall or router (see /etc/dhcpcd.conf slaac hwaddr).
 
@@ -16,18 +16,18 @@ The architectures supported by this image are:
 
 ## Usage
 
-docker image: https://hub.docker.com/r/chriskuba/dynv6-client
+docker image: https://hub.docker.com/r/chriskuba/duckdns-client
 
 ### docker-compose
 ```
 ---
 version: "0.0.1"
 service:
-  dynv6-client:
-    image: chriskuba/dynv6-client
-    container-name: dynv6-client
+  duckdns-client:
+    image: chriskuba/duckdns-client
+    container-name: duckdns-client
     environment:
-      - ZONE=myzone.dynv6.net
+      - ZONE=myzone.duckdns.org
       - TOKEN=mysecuretoken
       - SLEEP=500 #optional
       - INTERFACE=eth0 #optional
@@ -39,22 +39,22 @@ service:
 ### docker-cli
 ```
 docker run -d \
-  --name=dynv6-client \
-  -e ZONE=myzone.dynv6.net \
+  --name=duckdns-client \
+  -e ZONE=myzone.duckdns.org \
   -e TOKEN=mysecuretoken \
   -e SLEEP=500 `#optional` \
   -e INTERFACE=eth0 `#optional` \
   -e GREP="scope global dynamic" `#optional` \
   --restart always
   --network host
-  chriskuba/dynv6-client
+  chriskuba/duckdns-client
 ```
 
 ### Parameters
 | Parameter | Function |
 | ------ | ------ |
-| -e ZONE | zone of dynvpn to update - eg. myzone.dynv6.net |
-| -e TOKEN | secure token of your dynv6 account |
+| -e ZONE | zone/domain of dynvpn to update - eg. myzone.duckdns.org |
+| -e TOKEN | secure token of your duckdns account |
 | -e SLEEP=500 | seconds between to updates |
 | -e INTERFACE=eth0 | interface to read ip from |
 | -e GREP="scope global dynamic" | unique string to identify the correct ipv6 (if multiple exists) |
