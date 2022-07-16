@@ -3,5 +3,5 @@
 docker build \
   --no-cache=true \
   --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%S+01:00') \
-  -t dynv6-client \
+  -t duckdns-client \
   .
